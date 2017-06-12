@@ -122,8 +122,12 @@ public class Director {
 		tournamentMode = TournamentMode.create(Xml.getChildOf(document.getRootElement(), "TournamentMode"));
 
 		List<Element> players = document.getRootElement().getChildren("Player");
-		for (Element e : players)
+		for (Element e : players){
 			tournamentMode.addPlayer(Player.create(e));
+			//added
+			dealer.addPlayer(Player.create(e));
+		}
+
 	}
 
 

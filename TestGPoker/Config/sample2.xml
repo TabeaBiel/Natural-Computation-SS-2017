@@ -39,7 +39,7 @@
         <!--<index>0</index>-->
     <!--</Player>-->
 
-    <Dealer class="Dealer">
+    <Dealer class="MyDealer">
         <duplicateHands>true</duplicateHands>
     </Dealer>
 

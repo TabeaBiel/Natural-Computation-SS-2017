@@ -26,37 +26,37 @@ public class Dealer {
 
 
 	/** Deck of Cards. */
-	private final Deck deck;
+	protected final Deck deck;
 
 	/** Community cards. */
-	private final List<Card> community;
+	protected final List<Card> community;
 
 	/** ALL players on the table. Includes all-in, fold, broke, active players. */
-	private final List<Player> players;
+	protected final List<Player> players;
 
 	/** All active Players who are currently playing the hand. Includes only All-in and active players. */
-	private final List<Player> activePlayers;
+	protected final List<Player> activePlayers;
 
 	/** The player with the dealer button. */
-	private Player button;
+	protected Player button;
 
 	/** The stage of the current hand. */
-	private int stage;
+	protected int stage;
 
 	/** The current pot. */
-	private int pot;
+	protected int pot;
 
 	/** The current maximal stage bet of a player. */
-	private int betLevel;
+	protected int betLevel;
 
 	/** The evaluator of cards. */
-	private Evaluator evaluator;
+	protected Evaluator evaluator;
 
 	/** A utility list. */
-	private List<Player> winners;
+	protected List<Player> winners;
 
 	/** The game mode. */
-	private GameMode gameMode;
+	protected GameMode gameMode;
 
 	/**
 	 * Constructor via XML config-file.
@@ -257,7 +257,7 @@ public class Dealer {
 	/**
 	 * To play one hand (Texas Hold'em rule set).
 	 */
-	private void playHand() {
+	protected void playHand() {
 
 		prepareHand();
 		dealHoleCards(2);											// two cards for players
@@ -297,7 +297,7 @@ public class Dealer {
 	 *
 	 * @return 			true if round has normally finished, false, if only one active player is left
 	 */
-	private boolean doBettingRound(Player player) {
+	protected boolean doBettingRound(Player player) {
 
 		if (stage > PRE_FLOP)
 			player = button;									// post-flop
@@ -325,7 +325,7 @@ public class Dealer {
 
 
 	/** Allows a move for all active players. */
-	private void allowMoves() {
+	protected void allowMoves() {
 
 		for (Player p : activePlayers)
 			p.setMove(true);
@@ -340,7 +340,7 @@ public class Dealer {
 	 * @param move     	the move announced by the player
 	 *
 	 */
-	private void checkMove(Player player, Move move) {
+	protected void checkMove(Player player, Move move) {
 
 		if (move.getType() == Move.CHECK) {
 			if (player.getStageBets() != betLevel)            // someone raised before?
@@ -367,7 +367,7 @@ public class Dealer {
 	 * @param player	the player
 	 * @param move		the move
 	 */
-	private void executeMove(Player player, Move move) {
+	protected void executeMove(Player player, Move move) {
 
 		switch (move.getType()) {
 			case Move.CHECK:
@@ -400,7 +400,7 @@ public class Dealer {
 
 
 	/** Handles evaluation of winner(s), tie breaks, and distribution of pot to winner(s). */
-	private void showDown() {
+	protected void showDown() {
 
 		if (activePlayers.size() == 1) {					// the only active player wins the pot
 			activePlayers.get(0).win(pot);
@@ -487,7 +487,7 @@ public class Dealer {
 	 *
 	 * @return          the share rounded in small blinds
 	 */
-	private int getWinShare(int chips, int count) {
+	protected int getWinShare(int chips, int count) {
 
 		if (count == 1)
 			return chips;								// nothing to share
@@ -520,14 +520,14 @@ public class Dealer {
 	 *
 	 * @return          0, if equal, 1 if first hand, 2 if second hand wins
 	 */
-	private int tieBreak(Hand hand1, Hand hand2) {
+	protected int tieBreak(Hand hand1, Hand hand2) {
 
 		return evaluator.resolve(hand1, hand2, community);
 	}
 
 
 	/** Prepares for a new hand. */
-	private void prepareHand() {
+	protected void prepareHand() {
 
 		community.clear();
 		betLevel = 0;
@@ -553,7 +553,7 @@ public class Dealer {
 	 * @return 			the next active player
 	 *
 	 */
-	private Player getNextPlayer(Player player) {
+	protected Player getNextPlayer(Player player) {
 
 		int pos = players.indexOf(player);				// may be -1, but it still works
 
@@ -623,7 +623,7 @@ public class Dealer {
 	 * Deals hole cards in the correct order being necessary for the duplicate hand system to work. If activated the
 	 * deck is only shuffled after each active player has played the same hand(s).
 	 */
-	private void dealHoleCards(int numberOfCards) {
+	protected void dealHoleCards(int numberOfCards) {
 
 		Player player = button;
 		do {
@@ -638,7 +638,7 @@ public class Dealer {
 	 *
 	 * @param numberOfCards Number of dealt cards.
 	 */
-	private void dealCommunityCards(int numberOfCards) {
+	protected void dealCommunityCards(int numberOfCards) {
 
 		deck.draw(numberOfCards, community);
 		Director.getInstance().getReporter().reportStage();
