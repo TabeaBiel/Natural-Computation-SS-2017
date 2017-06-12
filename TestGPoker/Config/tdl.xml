@@ -1,0 +1,9 @@
+<GPoker>
+    <Player class="TDPlayer" name="TDPlayer"/>
+    <Player class="CallPlayer" name="Call"/>
+    <GameMode class="Doyle" name="Test Run">
+        <chipsPerPlayer>10000</chipsPerPlayer>
+        <bigBlind>10</bigBlind>
+        <rounds>10000</rounds>
+    </GameMode>
+</GPoker>

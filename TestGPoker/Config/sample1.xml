@@ -1,0 +1,19 @@
+<GPoker>
+    <Player class = "NextPlayer" name = "AntiAntiStage" peep = "false"/>
+    <Player class = "CodePlayer" name = "Code" peep = "true">
+        <codeFile>testPlayer.xml</codeFile>
+    </Player>
+    <!--<Player class = "TestPlayer" name = "Culture" peep="true"/>-->
+
+    <GameMode class="Doyle" name="Test Run">
+        <chipsPerPlayer>1000</chipsPerPlayer>
+        <bigBlind>10</bigBlind>
+        <rounds>100000</rounds>
+    </GameMode>
+    <Dealer class="Dealer">
+        <duplicateHands>true</duplicateHands>
+    </Dealer>
+    <Reporter>
+        <level>1</level>
+    </Reporter>
+</GPoker>

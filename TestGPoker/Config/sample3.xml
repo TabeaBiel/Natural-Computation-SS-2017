@@ -1,0 +1,16 @@
+<GPoker>
+    <Player class="GPlayer" name="Darwin"/>
+    <Player class="CallPlayer" name="Call"/>
+    <GameMode class="Doyle" name="Evolution">
+        <chipsPerPlayer>1000</chipsPerPlayer>
+        <bigBlind>10</bigBlind>
+        <rounds>1000</rounds>
+    </GameMode>
+
+	<Evolution 
+		numberOfGenerations="50"
+		populationSize="100"
+		mutationRate="0.01">
+        <FitnessEvaluator class = "OneSeat"/>
+	</Evolution>
+</GPoker>

@@ -1,0 +1,165 @@
+A number of things have changed in GPoker, i.e., they are not covered by the manual/thesis.
+The changes (maybe not all of them) are documented here (they will move to the manual later).
+Due to the many additions there will certainly be settings, which do not work, i.e., GPoker might crash. If so, please,
+study the output of the Java Runtime Environment.
+
+==== XML Configuration File ====
+(see also the sample configurations in /Config)
+
+<Player>
+
+The players are no longer combined under the tag <Players>. Just add the number and type of players you like. A player
+no longer has the attributes 'chips' and 'strategy'. The most simple player configuration looks like this:
+
+ <Player class="TestPlayer" name = "Test"/>
+
+ The attribute 'class' is the unqualified class name of the player, which has to be located in the package 'gp.players'.
+ The attribute 'name' is an arbitrary name just used for eventual output information. The player 'HumanPlayer' allows
+ you to play interactively (via command line output) against other players. In 'TestPlayer' there are many strategies
+ extracted from evolved players. There is a new atribute for interactive play
+
+ peep = "false"
+
+ which controls the output of a player's hand. If 'peep' is true, the hole cards of the player are shown (so you may cheat..;-).
+ This attribute is only relevant, when interactive play is chosen (see below).
+
+
+ The 'CodePlayer' takes its strategy from another XML file (it is in JEvolution's tree format). This file is defined by
+
+ <codeFile>best.xml</codeFile>
+
+ inside the CodePlayer tag. Make sure that 'best.xml' has the correct format.
+
+ The 'CulturePlayer' is a player technically consisting of many CodePlayers, i.e., it has a number of different strategies.
+ All these strategies are in another XML file, which contains all the strategies. It is simply a collection of single strategies
+  (again all in JEvolution tree format). This file is defined by
+
+  <cultureFile>culture7c.xml</cultureFile>
+
+  inside the CulturePlayer tag, which has even more options.
+
+  The tag
+
+  <selectMode>1</selectMode>
+
+  controls, how the strategies of a culture player are selected. Currently, there are two modes BEST = 0 (default), which always selects
+  the strategy with the best current success, and EXP = 1, which exponentially assigns a selection probability to the players according
+  to their success. In essence this leads to selection of the best player with 2/3 and the second best with 1/3 probability
+  (roughly). All other players get very small probabilities, but they may be selected.
+
+   The tag
+
+   <dissect>false</dissect>
+
+   refers to the dissection of strategies of a culture player. If 'dissect' is true (default false),
+   the n strategies of a culture player are used to generate n CodePlayers, hence you do not define one player but n players.
+   This is mainly used for the analysis of the single strategies of a CulturePlayer, which is also supported by
+   another option in 'CodePlayer'
+
+   <codeFile>culture10a.xml</codeFile>
+   <index>2</index>
+
+    You may also define the strategy of a CodePlayer by giving it a culture file and an index pointing to a single strategy
+    inside the culture file. Index 0 refers to the first strategy. Again, this may be used for analysis of specific strategies.
+
+
+    There is a new tag 'Dealer' for instructions to the dealer. The only tag is now
+
+    <duplicateHands>false</duplicateHands>
+
+    which controls the usage of the duplicate hand concept. If 'duplicateHands' is true, then n players get the same hands
+    in n hands played. For n = 2 this means that the hands of players A and B are simply exchanged in the next hand (also
+    with the same community cards). This setting decreases the variance of game results and may help to reduce the number
+    of games for a sound statistical analysis. The default setting is false, so if you are not interested in duplicate hands,
+    then you do not need the 'Dealer' tag, at all.
+
+
+    A next new tag controls the way a complete game of poker is played (it does not change the specific set of poker rules!).
+
+    <GameMode class="Doyle" name="Live Test">
+        <chipsPerPlayer>1000</chipsPerPlayer>
+        <bigBlind>10</bigBlind>
+        <rounds>30</rounds>
+    </GameMode>
+
+    The 'class' tag is the unqualified name of the game mode class in the package 'gp.modes'. Currently, there are two modes:
+    'Doyle' and 'SitAndGo'. With Doyle's game the chips of the players are reset to the start chips afer each single hand,
+    hence in every hand the players have equal chip stacks. The SitAndGo mode is a classic poker table, where each player
+     gets a chip stack and plays as many rounds, as he or she has chips. If a player lost all the chips, then he or she does
+     no longer play, but the other players continue playing until one player has all the chips. The 'name' is an arbitrary name.
+
+     The tag 'chipsPerPlayer' defines the amount of chips a player starts with. The tag 'bigBlind' sets the number of chips
+     used as big blind. The small blind is half of the big blind. The tag 'rounds' refers to the number of hands played.
+     The exact meaning depends on the game mode selected. With Doyle's game the rounds are simply the mmber of hands played.
+     With SitAndGo it is the number of tables played, i.e., one round are all hands leading to a winner of the table.
+
+
+     The tag 'TournamentMode' is experimental and should only be used like this:
+
+     <TournamentMode class = "RoundRobin" name = "RoundRobin">
+     <rounds>1</rounds>
+     </TournamentMode>
+
+     The tournament mode defines how a poker tournament is played. The above setting plays the given number of 'rounds'
+     in the specific game mode in a heads-up style. If n players are defined, then each player plays against each other player.
+     A single round consists of a complete game defined in 'GameMode' (e.g., Doyle with 10,000 rounds). This may be used for the
+     analysis of a number of players, e.g., all strategies of a culture. The results of the tournament are written to output
+     in the form of a game matrix. The elements of the matrix are the chips a player has won/lost against another player.
+
+
+     The tag 'Reporter' controls the output of the poker reporter.
+
+    <Reporter>
+        <level>4</level>
+    </Reporter>
+
+    Currently, the only tag is 'level' defining the verbosity of the output. The default level is QUIET = 0 yielding
+    no output. The next levels are MINIMAL = 1, BRIEF = 2 (not implemented), VERBOSE = 3, and INTERACTIVE = 4.
+    In the interactive level the game is controlled by user input, i.e., you may play against computer players, or you
+    can watch computer players play against each other.
+
+
+   ==== Evolution Settings ====
+
+    The evolution of poker players works, but its configuration is a bit tricky. Actually, it is simple, but there are
+    some implicit assumptions. Most importantly, with the definition of a player with class 'GPlayer' GPoker assumes that
+    you want to evolve a player (this is the GPlayer), hence it switches to evolution mode. If GPlayer is the only player, then
+    GPoker sets up a coevolutionary run using the culture concept. If there are additional other players, these are assumed
+    to be the opponents of GPlayer, which starts a standard evolution against the opponents. In any case the game mode is defined by
+    'GameMode' (see above).
+
+     Specific parameters controlling the evolutionary algorithm are given with the 'Evolution' tag.
+
+     <Evolution
+        numberOfGenerations = "1000"
+        populationSize = "1000"
+        mutationRate = "0.02"
+        crossoverRate = "0.7">
+        <FitnessEvaluator class = "Culture"/>
+    </Evolution>
+
+    The above settings have been empirically found to be good (you should use them). IMPORTANT; in case of coevolution you
+    have to set the FitnessEvaluatur to "Culture", in case of evolution to "Single". It defines how the fitness of a player
+    is evaluated. In the culture setting the fitness is the number of chips won/lost after playing against all the culture players.
+    In the single setting the fitness is the number of chips won/lost playing against the other players defined in the configuration
+    file.
+
+    CAVEATS: not all evolution settings can be made here (boring work nobody wants to do..;-), if you want to change more
+     specific things you have to do it in 'gpoker.gp.GPoker'. E.g., the specific program nodes used for genetic programming
+     are defined here.
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

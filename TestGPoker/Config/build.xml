@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- GPoker Ant Build File  -->
+
+<project name = "GPoker" default = "arch" basedir = "..">
+
+	<target name = "init">
+		<tstamp/>
+        <property name = "version" value = "0.9"/>
+        <property name = "sources" value="Sources"/>
+		<property name = "classes" value="Classes"/>
+		<property name = "archives" value = "Resources"/>
+		<property name = "distribution" value = "Distribution"/>
+		<property name = "config" value = "Config"/>
+		<property name = "doc" value = "Doc"/>
+	</target>
+
+	<target name = "prepare" depends = "init">
+		<mkdir dir = "${classes}"/>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac
+		    includeAntRunTime = "false"
+            encoding = "iso-8859-1"
+		    classpath = "${archives}/boone.jar;${archives}/jdom-2.0.5.jar;${archives}/JEvolution.jar"
+            srcdir = "${sources}"
+			destdir = "${classes}">
+		</javac>
+
+	</target>
+
+    <!--			manifest = "${config}/jevolution.mf" -->
+
+	<target name = "arch" depends = "compile">
+	  <jar jarfile = "${archives}/gpoker.jar"
+	    basedir = "${classes}"/>
+	</target>
+
+	<path id="classpath">
+		<fileset dir="Resources">
+				<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name = "run">
+		<!-- <arg value="-x sample2.xml"/> -->
+
+		<java classname="gpoker.Director">
+			<classpath>
+				<pathelement location="${classes}" />
+				<path refid="classpath" />
+			</classpath>
+		</java>
+
+	</target>
+
+    <target name = "api" depends = "compile">
+        <javadoc Windowtitle = "GPoker"  packagenames="src" sourcepath="${sources}" destdir="${distribution}/api" failonerror="true">
+            <fileset dir="${sources}" excludes = "**/*.html, snn/*">
+                <include name="**"/>
+            </fileset>
+        </javadoc>
+    </target>
+
+    <target name = "samples" depends = "init">
+        <description>Copy samples to distribution. </description>
+        <copy todir = "${distribution}/config">
+            <fileset dir = "${config}" excludes = "build.xml">
+                <include name = "*.xml"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name = "doc" depends = "init">
+        <description>Copy various doc files. </description>
+        <copy todir = "${distribution}/doc" file = "${doc}/howToGPoker.txt" />
+    </target>
+
+    <target name = "dist" depends = "arch, api, samples, doc">
+        <description>Create the distribution package. </description>
+        <copy todir = "${distribution}/lib">
+            <fileset dir = "${archives}">
+                <include name = "*.jar"/>
+            </fileset>
+        </copy>
+        <tar basedir = "${distribution}" compression = "gzip" destfile = "${config}/gpoker-${version}.tgz"/>
+    </target>
+
+    <target name="clean" depends = "prepare">
+        <delete dir = "${classes}"/>
+        <delete dir = "${distribution}"/>
+    </target>
+
+</project>

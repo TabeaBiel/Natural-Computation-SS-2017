@@ -1,0 +1,27 @@
+How to GPoker:
+
+--- Start a tournament with GPoker ---
+1. Make gpoker.jar, JEvolution.jar, and jdom-2.0.5.jar available in your class path
+2. Select XML config file
+3. Start main class gp.Director
+
+--- Use different XML config files ---
+ - Default file name is "gpoker.xml"
+ - To use other files execute with args -x <Filename>
+ 
+--- Create an XML config file ---
+ - Take a look at the documentation at section 3.2 XML-Configuration
+ - Or at the XML samples (e.g., sample1.xml)
+ 
+--- Add a new AI Player to GPoker ---
+1. Create a new class in the gpoker.players package
+2. Let it extend the abstract Player class
+3. Implement abstract methods (javadoc of all methods in doc folder or look a the java code)
+4. Connect your new class with your AI core
+	- act is called whenever the player has to make a move
+	- isTrusted returns if the moves returned by the player have to be checked for not violating any poker rules (in general this should return false)
+5. Create (or change) an XML config file and add your new player
+6. Take a look at the already implemented players (e.g., RandomPlayer.java) for more help
+7. Or read the documentation at section 3.1.5 Strategies
+
+
