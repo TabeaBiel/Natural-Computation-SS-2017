@@ -176,6 +176,12 @@ public class Director {
 		Director director = Director.getInstance();
 		director.setup();
 		director.start();
+		director.printStats();
+	}
+
+	//added
+	private void printStats(){
+		dealer.printStats();
 	}
 
 

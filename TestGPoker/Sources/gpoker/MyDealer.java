@@ -26,7 +26,6 @@ public class MyDealer extends Dealer{
 
 	@Override
 	protected boolean doBettingRound(Player player) {
-		System.out.println(players.size());
 		if (stage > PRE_FLOP)
 			player = button;									// post-flop
 		player = getNextPlayer(player);
@@ -84,6 +83,23 @@ public class MyDealer extends Dealer{
 			default:
 		}
 		
+	}
+
+	@Override
+	protected void printStats(){
+		for(Player p:players){
+			System.out.println();
+			String name = p.getName();
+			System.out.println("Player: "+name);
+			PlayerStat stat = stats.get(name);
+			System.out.println("PreFlopFolds: "+stat.getPreFlopFolds());
+			System.out.println("Folds: "+stat.getFolds());
+			System.out.println("Checks: "+stat.getChecks());
+			System.out.println("Calls: "+stat.getCalls());
+			System.out.println("BetPerCall: "+stat.getBetPerCall());
+			System.out.println("Raises: "+stat.getRaises());
+			System.out.println("BetPerRaise: "+stat.getBetPerRaise());
+		}
 	}
 
 
