@@ -92,6 +92,7 @@ public class MyDealer extends Dealer{
 			String name = p.getName();
 			System.out.println("Player: "+name);
 			PlayerStat stat = stats.get(name);
+			System.out.println("NumberOfMoves: "+stat.getMoves());
 			System.out.println("PreFlopFolds: "+stat.getPreFlopFolds());
 			System.out.println("Folds: "+stat.getFolds());
 			System.out.println("Checks: "+stat.getChecks());
@@ -103,7 +104,8 @@ public class MyDealer extends Dealer{
 	}
 
 
-	protected class PlayerStat{
+	private class PlayerStat{
+		private int moves;
 		private int preFlopFolds;
 		private int folds;
 		private int checks;
@@ -112,7 +114,8 @@ public class MyDealer extends Dealer{
 		private int raises;
 		private double betPerRaise;
 
-		protected PlayerStat(){
+		private PlayerStat(){
+			moves = 0;
 			preFlopFolds = 0;
 			folds = 0;
 			checks = 0;
@@ -122,38 +125,47 @@ public class MyDealer extends Dealer{
 			betPerRaise = 0;
 		}
 
-		protected void addPreFlopFold(){
+		private void addPreFlopFold(){
 			preFlopFolds++;
 			folds++;
+			moves++;
 		}
 
 		private void addFold(){
 			folds++;
+			moves++;
 		}
 
-		protected void addCheck(){
+		private void addCheck(){
 			checks++;
+			moves++;
 		}
 
-		protected void addCall(int bet){
+		private void addCall(int bet){
 			if(calls==0){
 				calls++;
 				betPerCall = bet;
 			}else{
 				betPerCall = (betPerCall * calls + bet)/++calls; 
 			}
+			moves++;
 		}
 
-		protected void addRaise(int bet){
+		private void addRaise(int bet){
 			if(raises==0){
 				raises++;
 				betPerRaise = bet;
 			}else{
 				betPerRaise = (betPerRaise * raises + bet)/++raises; 
 			}
+			moves++;
 		}
 
-		protected int getPreFlopFolds(){
+		private int getMoves(){
+			return moves;
+		}
+
+		private int getPreFlopFolds(){
 			return preFlopFolds;
 		}
 
@@ -161,23 +173,23 @@ public class MyDealer extends Dealer{
 			return folds;
 		}
 
-		protected int getChecks(){
+		private int getChecks(){
 			return checks;
 		}
 
-		protected int getCalls(){
+		private int getCalls(){
 			return calls;
 		}
 
-		protected double getBetPerCall(){
+		private double getBetPerCall(){
 			return betPerCall;
 		}
 
-		protected int getRaises(){
+		private int getRaises(){
 			return raises;
 		}
 
-		protected double getBetPerRaise(){
+		private double getBetPerRaise(){
 			return betPerRaise;
 		}
 	}
