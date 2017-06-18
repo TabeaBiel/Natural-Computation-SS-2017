@@ -62,25 +62,18 @@ public class MyDealer extends Dealer{
 		PlayerStat stat = stats.get(player.getName());
 		int type = move.getType();
 
-		if(stage == 0){
-			stat.addPreFlopMove();
-		}
-
 		switch(type){
 			case 0:
-				if(stage == 0)
-					stat.addPreFlopFold();
-				else
-					stat.addFold();
+				stat.addFold(stage);
 				break;
 			case 1:
-				stat.addCheck();
+				stat.addCheck(stage);
 				break;
 			case 2:
-				stat.addCall(move.getBet());
+				stat.addCall(stage);
 				break;
 			case 3:
-				stat.addRaise(move.getBet());
+				stat.addRaise(move.getBet(), pot, stage);
 				break;
 
 			default:
@@ -92,18 +85,33 @@ public class MyDealer extends Dealer{
 	protected void printStats(){
 		for(Player p:players){
 			System.out.println();
+			System.out.println();
+			System.out.println();
 			String name = p.getName();
 			System.out.println("Player: "+name);
 			PlayerStat stat = stats.get(name);
-			System.out.println("NumberOfMoves: "+stat.getMoves());
 			System.out.println("NumberOfPreFlopMoves: "+stat.getPreFlopMoves());
 			System.out.println("PreFlopFolds: "+stat.getPreFlopFolds());
+			System.out.println("PreFlopChecks: "+stat.getPreFlopChecks());
+			System.out.println("PreFlopCalls: "+stat.getPreFlopCalls());
+			System.out.println("PreFlopRaises: "+stat.getPreFlopRaises());
+			System.out.println("BetPerPreFlopRaise: "+stat.getBetPerPreFlopRaise());
+			System.out.println("PreFlopTightness: "+stat.getPreFlopTightness());
+			System.out.println("PreFlopAggresionPercentage: "+stat.getPreFlopAggressionPercentage());
+			System.out.println("PreFlopAggresion: "+stat.getPreFlopAggression());
+			System.out.println();
+			System.out.println("NumberOfMoves: "+stat.getMoves());
 			System.out.println("Folds: "+stat.getFolds());
 			System.out.println("Checks: "+stat.getChecks());
 			System.out.println("Calls: "+stat.getCalls());
-			System.out.println("BetPerCall: "+stat.getBetPerCall());
 			System.out.println("Raises: "+stat.getRaises());
 			System.out.println("BetPerRaise: "+stat.getBetPerRaise());
+			System.out.println("PostFlopTightness: "+stat.getPostFlopTightness());
+			System.out.println("PostFlopAggresionPercentage: "+stat.getPostFlopAggressionPercentage());
+			System.out.println("PostFlopAggresion: "+stat.getPostFlopAggression());
+			System.out.println();
+			System.out.println("OverallTightness: "+stat.getOverallTightness());
+			System.out.println("OverallAggression: "+stat.getOverallAggression());
 		}
 	}
 
@@ -112,61 +120,88 @@ public class MyDealer extends Dealer{
 		private int moves;
 		private int preFlopMoves;
 		private int preFlopFolds;
+		private int preFlopChecks;
+		private int preFlopCalls;
+		private int preFlopRaises;
+		private double betPerPreFlopRaise; //relative to pot
 		private int folds;
 		private int checks;
 		private int calls;
-		private double betPerCall;
 		private int raises;
-		private double betPerRaise;
+		private double betPerPostFlopRaise;
+		private double betPerRaise; //relativ to pot
+
 
 		private PlayerStat(){
 			moves = 0;
 			preFlopMoves = 0;
 			preFlopFolds = 0;
+			preFlopChecks = 0;
+			preFlopRaises = 0;
+			betPerPreFlopRaise = 0;
+			preFlopCalls = 0;
 			folds = 0;
 			checks = 0;
 			calls = 0;
-			betPerCall = 0;
 			raises = 0;
+			betPerPostFlopRaise = 0;
 			betPerRaise = 0;
 		}
 
-		private void addPreFlopFold(){
-			preFlopFolds++;
+		private void addFold(int stage){
+			if(stage == 0){
+				preFlopMoves++;
+				preFlopFolds++;
+			}
+
 			folds++;
 			moves++;
 		}
 
-		private void addPreFlopMove(){
-			preFlopMoves++;
-		}
+		private void addCheck(int stage){
+			if(stage == 0){
+				preFlopMoves++;
+				preFlopChecks++;
+			}
 
-		private void addFold(){
-			folds++;
-			moves++;
-		}
-
-		private void addCheck(){
 			checks++;
 			moves++;
 		}
 
-		private void addCall(int bet){
-			if(calls==0){
-				calls++;
-				betPerCall = bet;
-			}else{
-				betPerCall = (betPerCall * calls + bet)/++calls; 
+		private void addCall(int stage){
+			if(stage == 0){
+				preFlopMoves++;
+				preFlopCalls++;
 			}
+
+			calls++;
 			moves++;
 		}
 
-		private void addRaise(int bet){
+		private void addRaise(int bet, int pot, int stage){
+			double ratio = (double) bet / (double) pot;
+
+			if(stage == 0){
+				preFlopMoves++;
+				if(preFlopRaises == 0){
+					preFlopRaises++;
+					betPerPreFlopRaise = ratio;
+				}else{
+					betPerPreFlopRaise = (betPerPreFlopRaise * preFlopRaises + ratio)/++preFlopRaises; 
+				}
+			}else{
+				if(raises - preFlopRaises == 0){
+					betPerPostFlopRaise = ratio;
+				}else{
+					betPerPostFlopRaise = (betPerPostFlopRaise * (raises - preFlopRaises) + ratio)/(raises - preFlopRaises + 1); 
+				}
+			}
+
 			if(raises==0){
 				raises++;
-				betPerRaise = bet;
+				betPerRaise = ratio;
 			}else{
-				betPerRaise = (betPerRaise * raises + bet)/++raises; 
+				betPerRaise = (betPerRaise * raises + ratio)/++raises; 
 			}
 			moves++;
 		}
@@ -183,6 +218,22 @@ public class MyDealer extends Dealer{
 			return preFlopFolds;
 		}
 
+		private int getPreFlopChecks(){
+			return preFlopChecks;
+		}
+
+		private int getPreFlopCalls(){
+			return preFlopCalls;
+		}
+
+		private int getPreFlopRaises(){
+			return preFlopRaises;
+		}
+
+		private double getBetPerPreFlopRaise(){
+			return betPerPreFlopRaise;
+		}
+
 		protected int getFolds(){
 			return folds;
 		}
@@ -195,16 +246,64 @@ public class MyDealer extends Dealer{
 			return calls;
 		}
 
-		private double getBetPerCall(){
-			return betPerCall;
-		}
-
 		private int getRaises(){
 			return raises;
 		}
 
 		private double getBetPerRaise(){
 			return betPerRaise;
+		}
+
+		private double getPreFlopTightness(){
+			double foldPart = (double) preFlopFolds / (double) (preFlopMoves - preFlopChecks);
+			double callPart = (1 - (double) (preFlopCalls + preFlopRaises) / (double) preFlopMoves); 
+
+			return foldPart / 2 + callPart / 2;
+		}
+
+		private double getPostFlopTightness(){
+			double foldPart = (double) (folds - preFlopFolds) / (double) (moves - preFlopMoves - checks + preFlopChecks);
+			double callPart = (1 - (double) (calls - preFlopCalls + raises -preFlopRaises) / (double) (moves - preFlopMoves)); 
+
+			return foldPart / 2 + callPart / 2;
+		}
+
+		private double getOverallTightness(){
+			return 2 * getPreFlopTightness() / 3 + getPostFlopTightness() / 3;
+		}
+
+		private double getPreFlopAggressionPercentage(){
+			return (double) preFlopRaises / (double) preFlopMoves;
+		}
+
+		private double getPostFlopAggressionPercentage(){
+			return (double) (raises - preFlopRaises) / (double) (moves - preFlopMoves);
+		}
+
+		private double getPreFlopAggression(){
+			double betPart;
+
+			if(betPerPreFlopRaise < 1)
+				betPart = betPerPreFlopRaise;
+			else
+				betPart = 1;
+
+			return 3 * getPreFlopAggressionPercentage() / 4 + betPart / 4;
+		}
+
+		private double getPostFlopAggression(){
+			double betPart;
+
+			if(betPerPostFlopRaise < 1)
+				betPart = betPerPostFlopRaise;
+			else
+				betPart = 1;
+
+			return 3 * getPostFlopAggressionPercentage() / 4 + betPart / 4;
+		}
+
+		private double getOverallAggression(){
+			return getPreFlopAggression() / 2 + getPostFlopAggression() / 2;
 		}
 	}
 }
