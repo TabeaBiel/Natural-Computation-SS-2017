@@ -1,21 +1,21 @@
 <GPoker>
 	<Player class="TestPlayer" name = "Test"/>
-	<Player class="TDPlayer" name = "TD"/>
+	<!-- <Player class="TDPlayer" name = "TD"/> -->
 	<!-- <Player class="HumanPlayer" name = "Me"/> -->
 	<!--<Player class="PatternPlayer" name = "Pattern"/>-->
     <!--<Player class = "CodePlayer" name = "PotRaiser" peep = "false">-->
     <!--<codeFile>potRaiser.xml</codeFile>-->
     <!--<index>0</index>-->
     <!--</Player>-->
-    <!--<Player class = "CodePlayer" name = "Best" peep = "true">-->
-    <!--<codeFile>best.xml</codeFile>-->
-    <!--</Player>-->
-
-    <!-- <Player class = "CulturePlayer" name = "7c" peep = "false">
+   <!--  <Player class = "CodePlayer" name = "Best" peep = "true">
+     <codeFile>best.xml</codeFile>
+    </Player> 
+ -->
+    <Player class = "CulturePlayer" name = "7c" peep = "false">
         <cultureFile>culture7c.xml</cultureFile>
         <selectMode>1</selectMode>
         <dissect>false</dissect>
-    </Player> -->
+    </Player>
     <!--<Player class = "CulturePlayer" name = "8a" peep = "false">-->
         <!--<cultureFile>culture8a.xml</cultureFile>-->
         <!--<selectMode>1</selectMode>-->

@@ -62,6 +62,10 @@ public class MyDealer extends Dealer{
 		PlayerStat stat = stats.get(player.getName());
 		int type = move.getType();
 
+		if(stage == 0){
+			stat.addPreFlopMove();
+		}
+
 		switch(type){
 			case 0:
 				if(stage == 0)
@@ -76,7 +80,6 @@ public class MyDealer extends Dealer{
 				stat.addCall(move.getBet());
 				break;
 			case 3:
-				if(stat == null) System.out.println("we found null");
 				stat.addRaise(move.getBet());
 				break;
 
@@ -93,6 +96,7 @@ public class MyDealer extends Dealer{
 			System.out.println("Player: "+name);
 			PlayerStat stat = stats.get(name);
 			System.out.println("NumberOfMoves: "+stat.getMoves());
+			System.out.println("NumberOfPreFlopMoves: "+stat.getPreFlopMoves());
 			System.out.println("PreFlopFolds: "+stat.getPreFlopFolds());
 			System.out.println("Folds: "+stat.getFolds());
 			System.out.println("Checks: "+stat.getChecks());
@@ -106,6 +110,7 @@ public class MyDealer extends Dealer{
 
 	private class PlayerStat{
 		private int moves;
+		private int preFlopMoves;
 		private int preFlopFolds;
 		private int folds;
 		private int checks;
@@ -116,6 +121,7 @@ public class MyDealer extends Dealer{
 
 		private PlayerStat(){
 			moves = 0;
+			preFlopMoves = 0;
 			preFlopFolds = 0;
 			folds = 0;
 			checks = 0;
@@ -129,6 +135,10 @@ public class MyDealer extends Dealer{
 			preFlopFolds++;
 			folds++;
 			moves++;
+		}
+
+		private void addPreFlopMove(){
+			preFlopMoves++;
 		}
 
 		private void addFold(){
@@ -163,6 +173,10 @@ public class MyDealer extends Dealer{
 
 		private int getMoves(){
 			return moves;
+		}
+
+		private int getPreFlopMoves(){
+			return preFlopMoves;
 		}
 
 		private int getPreFlopFolds(){
