@@ -1,0 +1,19 @@
+Culture run with 8 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+7 - community value
+
+
+- made some speed up, features are only calculated when changing, e.g., the hand value stays the same in a stage when raising and re-raising
+
+- very roughly it saves 1/3 of computation time
+
+- culture has 7 masters, the last is just a visitor, it is strange that it loses against all in tournaments, not clear how it gets into the culture

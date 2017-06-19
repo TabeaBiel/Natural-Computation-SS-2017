@@ -1,0 +1,30 @@
+Culture run with 9 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+7 - community value
+8 - pivot value
+
+
+- added AddDouble node
+
+- admission: each player (immediately) beating all masters
+
+- crossover rate is 0.7
+
+- pop size is 20x50, 5000 generations, RAMPED size 4, migration rate 0.0
+
+- 14 hours
+
+- 11 masters from 5 different subs
+
+- changed sampling of culture player to exponential ranking
+
+- good play

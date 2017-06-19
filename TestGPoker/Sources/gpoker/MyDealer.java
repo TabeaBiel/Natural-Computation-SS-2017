@@ -255,17 +255,17 @@ public class MyDealer extends Dealer{
 		}
 
 		private double getPreFlopTightness(){
-			double foldPart = (double) preFlopFolds / (double) (preFlopMoves - preFlopChecks);
-			double callPart = (1 - (double) (preFlopCalls + preFlopRaises) / (double) preFlopMoves); 
+			//double foldPart = (double) preFlopFolds / (double) (preFlopMoves - preFlopChecks);
+			//double callPart = (1 - (double) (preFlopCalls + preFlopRaises) / (double) preFlopMoves); 
 
-			return foldPart / 2 + callPart / 2;
+			return Math.pow(0.1, (double)(preFlopCalls + preFlopRaises) / (double)(preFlopFolds + preFlopChecks + 1) );
 		}
 
 		private double getPostFlopTightness(){
-			double foldPart = (double) (folds - preFlopFolds) / (double) (moves - preFlopMoves - checks + preFlopChecks);
-			double callPart = (1 - (double) (calls - preFlopCalls + raises -preFlopRaises) / (double) (moves - preFlopMoves)); 
+			//double foldPart = (double) (folds - preFlopFolds) / (double) (moves - preFlopMoves - checks + preFlopChecks);
+			//double callPart = (1 - (double) (calls - preFlopCalls + raises -preFlopRaises) / (double) (moves - preFlopMoves)); 
 
-			return foldPart / 2 + callPart / 2;
+			return Math.pow(0.1, (double)(calls - preFlopCalls + raises - preFlopRaises) / (double)(folds - preFlopFolds + checks - preFlopChecks + 1) );
 		}
 
 		private double getOverallTightness(){
@@ -281,29 +281,33 @@ public class MyDealer extends Dealer{
 		}
 
 		private double getPreFlopAggression(){
-			double betPart;
+			/*double betPart;
 
 			if(betPerPreFlopRaise < 1)
 				betPart = betPerPreFlopRaise;
 			else
 				betPart = 1;
-
-			return 3 * getPreFlopAggressionPercentage() / 4 + betPart / 4;
+			*/
+			double betPart = 1 - Math.pow(0.707106781, betPerPreFlopRaise);
+			double raisePart = 1 - Math.pow((double) preFlopRaises / preFlopMoves -1, 2);
+			return Math.max(betPart, raisePart); //3 * getPreFlopAggressionPercentage() / 4 + betPart / 4;
 		}
 
 		private double getPostFlopAggression(){
-			double betPart;
+			/*double betPart;
 
 			if(betPerPostFlopRaise < 1)
 				betPart = betPerPostFlopRaise;
 			else
 				betPart = 1;
-
-			return 3 * getPostFlopAggressionPercentage() / 4 + betPart / 4;
+			*/
+			double betPart = 1 - Math.pow(0.707106781, betPerPostFlopRaise);
+			double raisePart = 1 - Math.pow((double) (raises - preFlopRaises) / (moves - preFlopMoves) -1, 2);
+			return Math.max(betPart, raisePart);		//3 * getPostFlopAggressionPercentage() / 4 + betPart / 4;
 		}
 
 		private double getOverallAggression(){
-			return getPreFlopAggression() / 2 + getPostFlopAggression() / 2;
+			return 2 * getPreFlopAggression() / 3 + getPostFlopAggression() / 3;
 		}
 	}
 }

@@ -1,0 +1,18 @@
+Culture run with 7 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+
+
+- there was a bug with multiple re-raises, where the pot could be distributed incorrectly, I do not think it affected much, but I do not know
+
+- so in this run the bug was still there
+
+- 6 masters, 4 old, 4000 generations

@@ -1,5 +1,5 @@
 <GPoker>
-	<Player class="TestPlayer" name = "Test"/>
+	<!-- <Player class="TestPlayer" name = "Test"/> -->
 	<!-- <Player class="TDPlayer" name = "TD"/> -->
 	<!-- <Player class="HumanPlayer" name = "Me"/> -->
 	<!--<Player class="PatternPlayer" name = "Pattern"/>-->
@@ -7,15 +7,25 @@
     <!--<codeFile>potRaiser.xml</codeFile>-->
     <!--<index>0</index>-->
     <!--</Player>-->
-   <!--  <Player class = "CodePlayer" name = "Best" peep = "true">
-     <codeFile>best.xml</codeFile>
+     <Player class = "CodePlayer" name = "Best" peep = "false">
+     <codeFile>thebest.xml</codeFile>
     </Player> 
- -->
-    <Player class = "CulturePlayer" name = "7c" peep = "false">
+    <!-- <Player class="RandomPlayer" name = "Random"/> -->
+    <!-- <Player class="RandomPlayer" name = "RandomTested"/> -->
+ <!--    <Player class = "CodePlayer" name = "tested" peep = "false">
+     <codeFile>thebest.xml</codeFile>
+    </Player>  -->
+
+    <Player class = "CulturePlayer" name = "7cOverall" peep = "false">
         <cultureFile>culture7c.xml</cultureFile>
         <selectMode>1</selectMode>
         <dissect>false</dissect>
     </Player>
+    <!-- <Player class = "CulturePlayer" name = "8aOverall" peep = "false">
+        <cultureFile>culture8a.xml</cultureFile>
+        <selectMode>1</selectMode>
+        <dissect>false</dissect>
+    </Player> -->
     <!--<Player class = "CulturePlayer" name = "8a" peep = "false">-->
         <!--<cultureFile>culture8a.xml</cultureFile>-->
         <!--<selectMode>1</selectMode>-->
@@ -34,10 +44,11 @@
         <!--<selectMode>1</selectMode>-->
         <!--<dissect>false</dissect>-->
     <!--</Player>-->
-    <!--<Player class = "CodePlayer" name = "10a" peep = "true">-->
-        <!--<codeFile>culture10a.xml</codeFile>-->
-        <!--<index>0</index>-->
-    <!--</Player>-->
+ <!--    <Player class = "CodePlayer" name = "9z" peep = "true">
+        <codeFile>culture7c.xml</codeFile>
+        <index>0</index>
+    </Player> -->
+
 
     <Dealer class="MyDealer">
         <duplicateHands>true</duplicateHands>
@@ -46,7 +57,7 @@
     <GameMode class="Doyle" name="Live Test">
         <chipsPerPlayer>1000</chipsPerPlayer>
         <bigBlind>10</bigBlind>
-        <rounds>10000</rounds>
+        <rounds>100000</rounds>
     </GameMode>
 
     <!--<TournamentMode class = "RoundRobin" name = "RoundRobin">-->

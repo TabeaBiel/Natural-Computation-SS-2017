@@ -1,0 +1,29 @@
+Culture run with 9 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+7 - community value
+8 - pivot value
+
+
+- admission: each player (immediately)) beating all masters
+
+- crossover rate is 0.6
+
+- pop size is 500, 5000 generations
+
+- 20 hours
+
+- 6 masters
+
+- weak to medium play
+
+
+

@@ -1,0 +1,28 @@
+Culture run with 10 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+7 - community value
+8 - pivot value
+9 - stack value
+
+- truncation selection with 0.3
+
+- admission: each player (immediately) beating all masters
+
+- crossover rate is 0.7
+
+- pop size is 20x50, 1000 generations, RAMPED size 6, no migration
+
+- 10 hours
+
+- 10 masters from 3 different subs
+
+- 

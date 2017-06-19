@@ -1,0 +1,26 @@
+Culture run with 12 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+7 - first flop
+8 - second flop
+9 - third flop
+10 - turn
+11 - river
+
+- the community cards have been added in this run
+
+- the whole culture contained only one community card (third flop), and this was in dead code
+
+- so I guess evolution decided that community is not really interesting
+
+- community was there at the beginning, but it seemed that it was used to create some randomness, e.g., depending on the second flop we do this or that
+
+- but in the end community was rarely used

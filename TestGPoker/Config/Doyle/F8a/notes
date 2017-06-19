@@ -1,0 +1,16 @@
+Culture run with 8 inputs
+
+Player input
+
+0 - high hole
+1 - low hole
+2 - hand value
+3 - pot value
+4 - call value
+5 - stage value
+6 - position
+7 - community value
+
+- culture has 10 masters, the last is not a short visitor
+
+- good performance
