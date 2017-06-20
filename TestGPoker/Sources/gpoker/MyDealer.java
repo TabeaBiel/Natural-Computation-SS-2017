@@ -269,7 +269,7 @@ public class MyDealer extends Dealer{
 		}
 
 		private double getOverallTightness(){
-			return 2 * getPreFlopTightness() / 3 + getPostFlopTightness() / 3;
+			return getPreFlopTightness();
 		}
 
 		private double getPreFlopAggressionPercentage(){
@@ -307,7 +307,9 @@ public class MyDealer extends Dealer{
 		}
 
 		private double getOverallAggression(){
-			return 2 * getPreFlopAggression() / 3 + getPostFlopAggression() / 3;
+			double betPart = 1 - Math.pow(0.707106781, betPerRaise);
+			double raisePart = 1 - Math.pow((double) (raises) / (moves) -1, 2);
+			return Math.max(betPart, raisePart);
 		}
 	}
 }
