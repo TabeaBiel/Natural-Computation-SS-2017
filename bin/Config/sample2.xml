@@ -1,0 +1,60 @@
+<GPoker>
+	<!--<Player class="TestPlayer" name = "Test"/>-->
+	<!--<Player class="TDPlayer" name = "TD"/>-->
+	<Player class="HumanPlayer" name = "Me"/>
+	<!--<Player class="PatternPlayer" name = "Pattern"/>-->
+    <!--<Player class = "CodePlayer" name = "PotRaiser" peep = "false">-->
+    <!--<codeFile>potRaiser.xml</codeFile>-->
+    <!--<index>0</index>-->
+    <!--</Player>-->
+    <!--<Player class = "CodePlayer" name = "Best" peep = "true">-->
+    <!--<codeFile>best.xml</codeFile>-->
+    <!--</Player>-->
+
+    <Player class = "CulturePlayer" name = "7c" peep = "false">
+        <cultureFile>culture7c.xml</cultureFile>
+        <selectMode>1</selectMode>
+        <dissect>false</dissect>
+    </Player>
+    <!--<Player class = "CulturePlayer" name = "8a" peep = "false">-->
+        <!--<cultureFile>culture8a.xml</cultureFile>-->
+        <!--<selectMode>1</selectMode>-->
+    <!--</Player>-->
+    <!--<Player class = "CulturePlayer" name = "10d" peep = "false">-->
+        <!--<cultureFile>culture10d.xml</cultureFile>-->
+        <!--<selectMode>1</selectMode>-->
+    <!--</Player>-->
+    <!--<Player class = "CulturePlayer" name = "10f" peep = "true">-->
+        <!--<cultureFile>culture10f.xml</cultureFile>-->
+        <!--<selectMode>1</selectMode>-->
+        <!--<dissect>false</dissect>-->
+    <!--</Player>-->
+    <!--<Player class = "CulturePlayer" name = "10e" peep = "false">-->
+        <!--<cultureFile>culture10e.xml</cultureFile>-->
+        <!--<selectMode>1</selectMode>-->
+        <!--<dissect>false</dissect>-->
+    <!--</Player>-->
+    <!--<Player class = "CodePlayer" name = "10a" peep = "true">-->
+        <!--<codeFile>culture10a.xml</codeFile>-->
+        <!--<index>0</index>-->
+    <!--</Player>-->
+
+    <Dealer class="Dealer">
+        <duplicateHands>false</duplicateHands>
+    </Dealer>
+
+    <GameMode class="Doyle" name="Live Test">
+        <chipsPerPlayer>1000</chipsPerPlayer>
+        <bigBlind>10</bigBlind>
+        <rounds>30</rounds>
+    </GameMode>
+
+    <!--<TournamentMode class = "RoundRobin" name = "RoundRobin">-->
+        <!--<rounds>1</rounds>-->
+    <!--</TournamentMode>-->
+
+    <Reporter>
+        <level>4</level>
+    </Reporter>
+
+</GPoker>

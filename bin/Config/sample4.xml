@@ -1,0 +1,18 @@
+<GPoker>
+    <Player class="PatternPlayer" name="Pattern"/>
+    <Player class="CallPlayer" name="Call"/>
+    <Player class="CodePlayer" name = "Stage"/>
+    <Player class="TestPlayer" name = "AntiPattern"/>
+    <GameMode class="Doyle" name="Evolution">
+        <chipsPerPlayer>2000</chipsPerPlayer>
+        <bigBlind>10</bigBlind>
+        <rounds>10</rounds>
+    </GameMode>
+    <Dealer class="Dealer">
+        <duplicateHands>true</duplicateHands>
+    </Dealer>
+    <Reporter>
+        <level>4</level>
+    </Reporter>
+
+</GPoker>

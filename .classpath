@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="TestGPoker/Sources"/>
+	<classpathentry kind="lib" path="TestGPoker/Resources/boone.jar"/>
+	<classpathentry kind="lib" path="TestGPoker/Resources/gpoker_vorc.jar"/>
+	<classpathentry kind="lib" path="TestGPoker/Resources/gpoker.jar"/>
+	<classpathentry kind="lib" path="TestGPoker/Resources/jdom-2.0.5.jar"/>
+	<classpathentry kind="lib" path="TestGPoker/Resources/JEvolution.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

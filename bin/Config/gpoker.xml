@@ -1,0 +1,22 @@
+<GPoker>
+<Player class="GPlayer" name="Darwin"/>
+<Player class = "CodePlayer" name = "Best" peep = "true">
+  <codeFile>thebest.xml</codeFile>
+</Player>
+<!--<Player class="RandomPlayer" name="Random"/>-->
+<GameMode class="Doyle" name="Evolution">
+    <chipsPerPlayer>1000</chipsPerPlayer>
+    <bigBlind>10</bigBlind>
+    <rounds>1000</rounds>
+</GameMode>
+
+<Evolution
+        numberOfGenerations="100"
+        populationSize="100"
+        mutationRate="0.02"
+        crossoverRate="0.7">
+        <FitnessEvaluator class = "Culture"/>
+</Evolution>
+
+
+</GPoker>

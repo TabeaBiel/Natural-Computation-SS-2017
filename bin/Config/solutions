@@ -1,0 +1,30 @@
+Against Call, Heads-up
+=======================
+ifm <=d vard[0] cd[0.6066] cm[Raise(0.2456)] cm[Raise(1.4024)]
+
+meaning
+
+if (larger hole < 10) then small raise else big raise
+=======================
+
+ifm <=d vard[0] cd[0.5744] cm[Fold] ifm cb[true] cm[Raise(1.7579)] cm[Fold]
+
+meaning
+
+if (larger hole < 9) then fold else big raise
+=======================
+
+    ifm <=d vard[1] cd[0.8189] ifm cb[false] cm[Raise(0.9903)] ifm <=d vard[1] vard[0] ifm cb[true] ifm <=d vard[1] cd[0.2631] cm[Fold] cm[Raise(1.2390)] cm[Raise(0.7917)] ifm <=d cd[0.1031] vard[0] ifm <=d cd[1.0140] vard[0] cm[Raise(1.4330)] cm[Call] cm[Fold] cm[Raise(0.3634)] 
+
+simplifies to
+
+ifm <=d vard[1] cd[0.8189] ifm <=d vard[1] cd[0.2631] cm[Fold] cm[Raise(1.2390)] cm[Raise(0.3634)]
+
+meaning
+
+if (smaller hole < Q) then if (smaller hole < 6) then fold else large raise else small raise
+
+comment: interesting, if medium hand large raise, if strong hand small raise
+=======================
+
+
