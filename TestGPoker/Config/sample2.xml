@@ -1,32 +1,42 @@
 <GPoker>
 	
-   <!--   <Player class = "CodePlayer" name = "Best" peep = "false">
+      
+
+    <!-- <Player class="RandomPlayer" name = "Random"/> -->
+     <!-- <Player class = "CulturePlayer" name = "7cOverall" peep = "false"> -->
+        <!-- <cultureFile>culture7c.xml</cultureFile> -->
+        <!-- <selectMode>1</selectMode> -->
+        <!-- <dissect>false</dissect> -->
+    <!-- </Player> -->
+
+    <Player class = "CodePlayer" name = "Best" peep = "false">
      <codeFile>thebest.xml</codeFile>
-    </Player>  -->
+    </Player>
 
-    <Player class="RandomPlayer" name = "Random"/>
-
-
-<!--     <Player class = "CulturePlayer" name = "7cOverall" peep = "false">
-        <cultureFile>culture7c.xml</cultureFile>
-        <selectMode>1</selectMode>
-        <dissect>false</dissect>
-    </Player> -->
-<!-- 
     <Player class = "CulturePlayer" name = "7c" peep = "false">
         <cultureFile>culture7c.xml</cultureFile>
-        <index>0</index>
-    </Player> -->
-
-<!--     <Player class = "CulturePlayer" name = "8a" peep = "false">
-        <cultureFile>culture8a.xml</cultureFile>
-        <selectMode>1</selectMode>
-    </Player> -->
-   
-    <Player class = "CodePlayer" name = "9z" peep = "true">
-        <codeFile>culture9z.xml</codeFile>
-        <index>0</index>
+        <index>5</index>
     </Player>
+
+    <!-- <Player class = "CulturePlayer" name = "7c" peep = "true"> -->
+        <!-- <cultureFile>culture7c.xml</cultureFile> -->
+        <!-- <index>4</index> -->
+    <!-- </Player> -->
+
+    <!-- <Player class = "CulturePlayer" name = "8a" peep = "false"> -->
+        <!-- <cultureFile>culture8a.xml</cultureFile> -->
+        <!-- <selectMode>1</selectMode> -->
+    <!-- </Player> -->
+
+    <!-- <Player class = "CulturePlayer" name = "8a" peep = "false"> -->
+        <!-- <cultureFile>culture8a.xml</cultureFile> -->
+        <!-- <index>5</index> -->
+    <!-- </Player> -->
+   
+    <!-- <Player class = "CodePlayer" name = "9z" peep = "true"> -->
+        <!-- <codeFile>culture9z.xml</codeFile> -->
+        <!-- <index>0</index> -->
+    <!-- </Player> -->
 
 
     <Dealer class="MyDealer">
