@@ -12,21 +12,21 @@
         <selectMode>1</selectMode>
         <dissect>false</dissect>
     </Player> -->
-<!-- 
+
     <Player class = "CulturePlayer" name = "7c" peep = "false">
         <cultureFile>culture7c.xml</cultureFile>
-        <index>0</index>
-    </Player> -->
+        <index>4</index>
+    </Player>
 
 <!--     <Player class = "CulturePlayer" name = "8a" peep = "false">
         <cultureFile>culture8a.xml</cultureFile>
-        <selectMode>1</selectMode>
+        <index>1</index>
     </Player> -->
    
-    <Player class = "CodePlayer" name = "9z" peep = "true">
+    <!-- <Player class = "CodePlayer" name = "9z" peep = "true">
         <codeFile>culture9z.xml</codeFile>
-        <index>0</index>
-    </Player>
+        <index>6</index>
+    </Player> -->
 
 
     <Dealer class="MyDealer">
