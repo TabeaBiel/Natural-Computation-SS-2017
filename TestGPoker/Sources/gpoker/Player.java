@@ -20,10 +20,10 @@ public abstract class Player implements Comparable<Player> {
 	protected String name;
 
 	/** The amount of chips the player has. */
-	private int chips;
+	protected int chips;
 
 	/** The card hand of the player. */
-	private Hand hand;
+	protected Hand hand;
 
 	/** The chips set in a hand so far. */
 	private int betsPerHand;

@@ -2,6 +2,7 @@ package gpoker.players;
 
 import gpoker.*;
 import org.jdom2.Element;
+import java.util.List;
 
 /**
  * The TestPlayer is testing strategies.
@@ -53,8 +54,56 @@ public class TestPlayer extends Player {
 	public Move act() {
 
 		Dealer dealer = Director.getInstance().getDealer();
-		int hand = dealer.evaluate(getHand());
+		hand.sort();
+		List<Card> cards = hand.getCards();
+		int lowCard = cards.get(1).getRank();
+		int highCard = cards.get(0).getRank();
+		int handValue = dealer.evaluate(getHand());
 		int totalChips = dealer.getTotalChips();
+		int potSize = dealer.getPot();
+		int stage = dealer.getStage();
+		int bet;
+		System.out.println("here0");
+		Move move;
+		if(stage == 0){
+			if(lowCard < 10 && highCard != lowCard){
+				System.out.println("here");
+				move = new Move(Move.CHECK);
+			}else{
+				if(highCard == lowCard){
+					if(lowCard >= 8){
+						move = new Move(Move.RAISE);
+						if(chips >= 3*potSize)
+							bet = 3*potSize;
+						else
+							bet = chips;
+						move.setBet(bet);
+					}else
+						move = new Move(Move.CALL);
+				}else{
+					move = new Move(Move.CALL);
+				}
+			}
+		}else{
+			if(handValue >= Hand.TWO_PAIR){
+				move = new Move(Move.RAISE);
+				if(chips >= 3*potSize)
+					bet = 3*potSize;
+				else
+					bet = chips;
+				move.setBet(bet);
+			}else{
+				if(handValue == Hand.ONE_PAIR){
+					if(stage == 1){
+						move = new Move(Move.CALL);
+					}else{
+						move = new Move(Move.CHECK);
+					}
+				}else{
+					move = new Move(Move.CHECK);
+				}
+			}
+		}
 
 //		double betRatio = (double)dealer.getCallBet(this) / (double)totalChips;
 //		Move move = new Move(Move.CALL);
@@ -68,7 +117,7 @@ public class TestPlayer extends Player {
 //		}
 
 //		double potValue = (double)dealer.getPot() / (double)totalChips;
-		Move move = new Move(Move.RAISE);
+		//Move move = new Move(Move.RAISE);
 //		if (hand > Hand.ONE_PAIR)						// code from evolved player against Call
 //			move.setBet((int)(1.9891 * dealer.getPot()));
 //		else {
@@ -78,7 +127,7 @@ public class TestPlayer extends Player {
 //				move.setBet((int)(1.9108 * dealer.getPot()));
 //		}
 
-		double handValue = (double)hand / (double)Hand.STRAIGHT_FLUSH;
+		//double handValue = (double)hand / (double)Hand.STRAIGHT_FLUSH;
 //		if (handValue >= potValue)                           		// code from evolved player against Call
 //			move.setBet((int)(1.0986 * dealer.getPot()));
 //		else
@@ -119,7 +168,7 @@ public class TestPlayer extends Player {
 //			move.setType(Move.CALL);
 
 		/* Four Player evolved against Call, Pattern, and Random. */
-		double callValue = dealer.getCallBet(this) / (double)totalChips;
+		//double callValue = dealer.getCallBet(this) / (double)totalChips;
 //
 //		if (hand > Hand.HIGH_CARD)
 //			move.setBet((int)(1.6510 * dealer.getPot()));
@@ -167,8 +216,8 @@ public class TestPlayer extends Player {
 //	  		move.setBet((int)(0.6970 * dealer.getPot()));
 
 		/* A first culture player. */
-		if (!getHand().isSorted())                                        		// hand is always hole cards
-			getHand().sort();
+//		if (!getHand().isSorted())                                        		// hand is always hole cards
+//			getHand().sort();
 //		if (callValue < 0.0040)
 //			move.setBet((int)(0.4654 * dealer.getPot()));
 //		else if (getCards().get(1).getRank() > Card.NINE)
@@ -177,12 +226,12 @@ public class TestPlayer extends Player {
 //			move.setType(Move.CHECK);
 
 		/* A culture chip leader. */
-    	if (getCards().get(1).getRank() > Card.NINE)
-			move.setBet((int)(0.6715 * dealer.getPot()));
-    	else if (callValue <= 0.0275 * handValue)
-			move.setBet((int)(0.0097 * dealer.getPot()));
-      	else
-			move.setType(Move.CHECK);
+//    	if (getCards().get(1).getRank() > Card.NINE)
+//			move.setBet((int)(0.6715 * dealer.getPot()));
+  //  	else if (callValue <= 0.0275 * handValue)
+	//		move.setBet((int)(0.0097 * dealer.getPot()));
+//      	else
+//			move.setType(Move.CHECK);
 
 		/* A robust culture player. */
 //		if (getCards().get(1).getRank() > Card.EIGHT)
