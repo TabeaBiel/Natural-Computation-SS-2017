@@ -13,7 +13,7 @@
      <codeFile>thebest.xml</codeFile>
     </Player>
 
-    <Player classe = "TestPlayer" name = "test" peep = "false" />
+    <Player class = "TestPlayer" name = "test" peep = "false" />
 <!-- 
     <Player class = "CulturePlayer" name = "7c" peep = "false">
         <cultureFile>culture7c.xml</cultureFile>

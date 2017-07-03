@@ -63,18 +63,17 @@ public class TestPlayer extends Player {
 		int potSize = dealer.getPot();
 		int stage = dealer.getStage();
 		int bet;
-		System.out.println("here0");
+
 		Move move;
 		if(stage == 0){
 			if(lowCard < 10 && highCard != lowCard){
-				System.out.println("here");
 				move = new Move(Move.CHECK);
 			}else{
 				if(highCard == lowCard){
 					if(lowCard >= 8){
 						move = new Move(Move.RAISE);
-						if(chips >= 3*potSize)
-							bet = 3*potSize;
+						if(chips >= 4*potSize)
+							bet = 4*potSize;
 						else
 							bet = chips;
 						move.setBet(bet);
@@ -87,8 +86,8 @@ public class TestPlayer extends Player {
 		}else{
 			if(handValue >= Hand.TWO_PAIR){
 				move = new Move(Move.RAISE);
-				if(chips >= 3*potSize)
-					bet = 3*potSize;
+				if(chips >= 4*potSize)
+					bet = 4*potSize;
 				else
 					bet = chips;
 				move.setBet(bet);

@@ -37,8 +37,8 @@ public class MyDealer extends Dealer{
 
 				if (!player.isTrusted() || move.getType() == Move.RAISE)
 					checkMove(player, move);						// is it allowed?
-				executeMove(player, move);
 				analyseMove(player, move);
+				executeMove(player, move);
 				if (activePlayers.size() == 1)
 					return false;                                    // end of hand
 			}
@@ -288,7 +288,7 @@ public class MyDealer extends Dealer{
 			else
 				betPart = 1;
 			*/
-			double betPart = 1 - Math.pow(0.707106781, betPerPreFlopRaise);
+			double betPart = 1 - Math.pow(0.5, betPerPreFlopRaise);
 			double raisePart = 1 - Math.pow((double) preFlopRaises / preFlopMoves -1, 2);
 			return Math.max(betPart, raisePart); //3 * getPreFlopAggressionPercentage() / 4 + betPart / 4;
 		}
@@ -301,13 +301,13 @@ public class MyDealer extends Dealer{
 			else
 				betPart = 1;
 			*/
-			double betPart = 1 - Math.pow(0.707106781, betPerPostFlopRaise);
+			double betPart = 1 - Math.pow(0.5, betPerPostFlopRaise);
 			double raisePart = 1 - Math.pow((double) (raises - preFlopRaises) / (moves - preFlopMoves) -1, 2);
 			return Math.max(betPart, raisePart);		//3 * getPostFlopAggressionPercentage() / 4 + betPart / 4;
 		}
 
 		private double getOverallAggression(){
-			double betPart = 1 - Math.pow(0.707106781, betPerRaise);
+			double betPart = 1 - Math.pow(0.5, betPerRaise);
 			double raisePart = 1 - Math.pow((double) (raises) / (moves) -1, 2);
 			return Math.max(betPart, raisePart);
 		}
